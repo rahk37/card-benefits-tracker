@@ -1,0 +1,25 @@
+<div class="section">
+  <h2>Card comparison</h2>
+  <div class="comparison-grid">
+    <div class="card comparison-card" *ngFor="let card of cards">
+      <div class="split">
+        <h3>{{ card.name }}</h3>
+        <span class="pill">{{ card.issuer }}</span>
+      </div>
+      <div class="comparison-detail">
+        <span class="label">Annual fee</span>
+        <span>{{ formatFee(card.annualFeeCents) }}</span>
+      </div>
+      <div class="comparison-detail" *ngIf="card.network">
+        <span class="label">Network</span>
+        <span>{{ card.network }}</span>
+      </div>
+      <div class="comparison-detail">
+        <span class="label">Top rewards</span>
+        <span class="muted">
+          {{ card.rewardCategories.slice(0, 2).map(reward => reward.earnRate + ' ' + reward.name).join(' · ') }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

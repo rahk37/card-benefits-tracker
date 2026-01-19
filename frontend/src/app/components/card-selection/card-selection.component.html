@@ -1,0 +1,35 @@
+<section class="page">
+  <div class="page-header">
+    <h1>Select your cards</h1>
+    <p class="muted">Choose the cards you currently carry to see rewards, credits, and perks in one place.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="card">Loading cards...</div>
+  <div *ngIf="errorMessage" class="card error">{{ errorMessage }}</div>
+
+  <div class="card-grid" *ngIf="!isLoading && !errorMessage">
+    <button
+      class="card card-item"
+      *ngFor="let card of cards"
+      type="button"
+      (click)="toggleCard(card.id)"
+      [class.selected]="selectedIds.has(card.id)">
+      <div class="split">
+        <h3>{{ card.name }}</h3>
+        <span class="pill">{{ card.issuer }}</span>
+      </div>
+      <p class="muted">{{ card.description }}</p>
+      <div class="split">
+        <span class="tag">{{ formatAnnualFee(card.annualFeeCents) }}</span>
+        <span class="tag" *ngIf="card.network">{{ card.network }}</span>
+      </div>
+    </button>
+  </div>
+
+  <div class="cta-row">
+    <button class="cta-button" [disabled]="selectedIds.size === 0" (click)="viewBenefits()">
+      View benefits
+    </button>
+    <span class="muted" *ngIf="selectedIds.size === 0">Select at least one card to continue.</span>
+  </div>
+</section>
