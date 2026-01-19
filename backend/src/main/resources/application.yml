@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/card_benefits}
-    username: ${DATABASE_USERNAME:card_benefits}
-    password: ${DATABASE_PASSWORD:card_benefits}
+    url: jdbc:h2:mem:card_benefits;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
   jpa:
     hibernate:
       ddl-auto: none
