@@ -12,10 +12,11 @@ import { CreditCard } from '../../models/credit-card.model';
 export class CardComparisonComponent {
   @Input({ required: true }) cards: CreditCard[] = [];
 
-  formatFee(annualFeeCents: number): string {
-    if (annualFeeCents === 0) {
-      return 'No annual fee';
-    }
-    return `$${(annualFeeCents / 100).toFixed(0)}`;
+  getTopRewards(card: CreditCard): string {
+    return card.description;
+  }
+
+  formatFee(annualFee: string): string {
+    return annualFee;
   }
 }

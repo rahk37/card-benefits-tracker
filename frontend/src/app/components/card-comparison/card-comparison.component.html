@@ -8,16 +8,16 @@
       </div>
       <div class="comparison-detail">
         <span class="label">Annual fee</span>
-        <span>{{ formatFee(card.annualFeeCents) }}</span>
+        <span>{{ formatFee(card.annualFee) }}</span>
       </div>
-      <div class="comparison-detail" *ngIf="card.network">
+      <div class="comparison-detail">
         <span class="label">Network</span>
-        <span>{{ card.network }}</span>
+        <span>{{ card.type }}</span>
       </div>
       <div class="comparison-detail">
         <span class="label">Top rewards</span>
         <span class="muted">
-          {{ card.rewardCategories.slice(0, 2).map(reward => reward.earnRate + ' ' + reward.name).join(' · ') }}
+          {{ getTopRewards(card) }}
         </span>
       </div>
     </div>

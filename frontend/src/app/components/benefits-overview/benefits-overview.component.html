@@ -1,11 +1,8 @@
 <section class="page">
   <div class="page-header">
-    <div class="split">
-      <div>
-        <h1>Benefits overview</h1>
-        <p class="muted">Review rewards, credits, and perks side by side.</p>
-      </div>
-      <a class="pill" routerLink="/">Edit selection</a>
+    <div>
+      <h1>Benefits overview</h1>
+      <p class="muted">Review rewards, credits, and perks side by side.</p>
     </div>
   </div>
 
@@ -16,51 +13,24 @@
     <app-card-comparison [cards]="selectedCards"></app-card-comparison>
 
     <div class="section">
-      <h2>Rewards categories</h2>
+      <h2>Selected card benefits</h2>
       <div class="card-grid">
-        <div class="card" *ngFor="let card of selectedCards">
-          <div class="split">
-            <h3>{{ card.name }}</h3>
-            <span class="pill">{{ card.issuer }}</span>
+        <div class="card category-card" *ngFor="let card of selectedCards">
+          <div class="benefit-header">
+            <img [src]="getImageUrl(card)" [alt]="card.name" class="benefit-image" />
+            <div class="benefit-title-block">
+              <h3>{{ card.name }}</h3>
+              <div class="muted">{{ card.issuer }}</div>
+            </div>
+            <span class="pill">{{ card.type }}</span>
           </div>
-          <div class="reward" *ngFor="let reward of card.rewardCategories">
-            <div class="reward-title">{{ reward.name }}</div>
-            <div class="muted">{{ reward.earnRate }}</div>
-            <div class="muted" *ngIf="reward.details">{{ reward.details }}</div>
+          <div class="benefit">
+            <div class="benefit-title">Annual fee</div>
+            <div class="muted">{{ card.annualFee }}</div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Credits</h2>
-      <div class="card-grid">
-        <div class="card" *ngFor="let entry of getGroupedBenefits('CREDIT')">
-          <h3>{{ entry.cardName }}</h3>
-          <div class="benefit" *ngFor="let benefit of entry.benefits">
-            <div class="benefit-title">{{ benefit.name }}</div>
-            <div class="muted">{{ benefit.description }}</div>
-            <span class="tag" *ngIf="benefit.valueText">{{ benefit.valueText }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Perks & protections</h2>
-      <div class="card-grid">
-        <div class="card" *ngFor="let entry of getGroupedBenefits('PERK')">
-          <h3>{{ entry.cardName }}</h3>
-          <div class="benefit" *ngFor="let benefit of entry.benefits">
-            <div class="benefit-title">{{ benefit.name }}</div>
-            <div class="muted">{{ benefit.description }}</div>
-          </div>
-        </div>
-        <div class="card" *ngFor="let entry of getGroupedBenefits('PROTECTION')">
-          <h3>{{ entry.cardName }}</h3>
-          <div class="benefit" *ngFor="let benefit of entry.benefits">
-            <div class="benefit-title">{{ benefit.name }}</div>
-            <div class="muted">{{ benefit.description }}</div>
+          <div class="benefit">
+            <div class="benefit-title">Key benefits</div>
+            <div class="muted">{{ card.description }}</div>
           </div>
         </div>
       </div>

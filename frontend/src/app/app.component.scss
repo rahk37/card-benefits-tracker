@@ -3,9 +3,10 @@
 }
 
 .app-header {
-  background: #0f172a;
+  background: #1e1f22;
   color: white;
   padding: 20px 24px;
+  border-bottom: 1px solid #2f3136;
 }
 
 .brand {
@@ -16,11 +17,13 @@
   margin: 0 auto;
 }
 
-.brand-dot {
-  width: 40px;
-  height: 40px;
+.brand-logo {
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  display: inline-block;
+  background: linear-gradient(135deg, #7289da, #5b6de6);
+  box-shadow: 0 6px 16px rgba(114, 137, 218, 0.35);
 }
 
 .brand-title {
@@ -30,5 +33,5 @@
 
 .brand-subtitle {
   font-size: 13px;
-  color: #cbd5f5;
+  color: #a1a1aa;
 }

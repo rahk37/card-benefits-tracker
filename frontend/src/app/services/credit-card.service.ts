@@ -7,7 +7,7 @@ import { CardBenefits } from '../models/benefit.model';
 
 @Injectable({ providedIn: 'root' })
 export class CreditCardService {
-  private readonly baseUrl = `${environment.apiUrl}/api`;
+  private readonly baseUrl = environment.apiUrl;
 
   constructor(private readonly http: HttpClient) {}
 
