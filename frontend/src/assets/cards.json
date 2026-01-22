@@ -1,0 +1,402 @@
+[
+    {
+        "name":  "Chase Sapphire Preferred",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$95",
+        "description":  "Flexible travel points, transfer partners, and strong travel protections.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "Chase Sapphire Reserve",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$550",
+        "description":  "Premium travel card with lounge access and annual travel credit.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "Chase Freedom Unlimited",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Everyday cash back with Chase Ultimate Rewards flexibility.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "Chase Freedom Flex",
+        "issuer":  "Chase",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Rotating 5% categories with cell phone protection.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "Chase Ink Business Preferred",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$95",
+        "description":  "Business travel card with large sign-up bonus potential.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "Chase Ink Business Cash",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Strong business cash back on office and internet services.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "Chase Ink Business Unlimited",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Flat-rate business cash back with Ultimate Rewards.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "United Explorer Card",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$95",
+        "description":  "United travel perks including checked bag and boarding benefits.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "Southwest Rapid Rewards Plus",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$69",
+        "description":  "Southwest points and annual bonus points.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "World of Hyatt",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$95",
+        "description":  "Free night certificates and elite status boosts.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "Marriott Bonvoy Boundless",
+        "issuer":  "Chase",
+        "type":  "Visa",
+        "annualFee":  "$95",
+        "description":  "Marriott points and annual free night.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "IHG One Rewards Premier",
+        "issuer":  "Chase",
+        "type":  "Mastercard",
+        "annualFee":  "$99",
+        "description":  "IHG points, free night, and 4th night free on awards.",
+        "imageUrl":  "https://logo.clearbit.com/chase.com"
+    },
+    {
+        "name":  "American Express Gold Card",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$250",
+        "description":  "Best-in-class dining and grocery rewards with monthly credits.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "American Express Platinum",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$695",
+        "description":  "Premium travel benefits with lounge access and statement credits.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "American Express Green",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$150",
+        "description":  "Flexible travel and transit rewards with Clear credit.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "Blue Cash Preferred",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$95",
+        "description":  "High cash back at U.S. supermarkets and streaming.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "Blue Cash Everyday",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$0",
+        "description":  "Everyday cash back on groceries, gas, and online retail.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "American Express Business Gold",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$375",
+        "description":  "Flexible business rewards on top categories.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "Capital One Venture X",
+        "issuer":  "Capital One",
+        "type":  "Visa",
+        "annualFee":  "$395",
+        "description":  "Premium travel card with annual travel credit and lounge access.",
+        "imageUrl":  "https://logo.clearbit.com/capitalone.com"
+    },
+    {
+        "name":  "Capital One Venture",
+        "issuer":  "Capital One",
+        "type":  "Visa",
+        "annualFee":  "$95",
+        "description":  "Simple 2x miles on everything with travel redemption.",
+        "imageUrl":  "https://logo.clearbit.com/capitalone.com"
+    },
+    {
+        "name":  "Capital One VentureOne",
+        "issuer":  "Capital One",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "No-fee miles with flexible travel redemption.",
+        "imageUrl":  "https://logo.clearbit.com/capitalone.com"
+    },
+    {
+        "name":  "Capital One SavorOne",
+        "issuer":  "Capital One",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Dining and entertainment cash back without an annual fee.",
+        "imageUrl":  "https://logo.clearbit.com/capitalone.com"
+    },
+    {
+        "name":  "Capital One Savor",
+        "issuer":  "Capital One",
+        "type":  "Mastercard",
+        "annualFee":  "$95",
+        "description":  "Enhanced cash back on dining and entertainment.",
+        "imageUrl":  "https://logo.clearbit.com/capitalone.com"
+    },
+    {
+        "name":  "Capital One Quicksilver",
+        "issuer":  "Capital One",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Flat-rate cash back with no annual fee.",
+        "imageUrl":  "https://logo.clearbit.com/capitalone.com"
+    },
+    {
+        "name":  "Citi Premier",
+        "issuer":  "Citi",
+        "type":  "Mastercard",
+        "annualFee":  "$95",
+        "description":  "Strong travel and dining rewards with transfer partners.",
+        "imageUrl":  "https://logo.clearbit.com/citi.com"
+    },
+    {
+        "name":  "Citi Prestige",
+        "issuer":  "Citi",
+        "type":  "Mastercard",
+        "annualFee":  "$495",
+        "description":  "Premium travel perks including 4th night free.",
+        "imageUrl":  "https://logo.clearbit.com/citi.com"
+    },
+    {
+        "name":  "Citi Double Cash",
+        "issuer":  "Citi",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Simple 2% cash back (1% buy, 1% pay).",
+        "imageUrl":  "https://logo.clearbit.com/citi.com"
+    },
+    {
+        "name":  "Citi Custom Cash",
+        "issuer":  "Citi",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "5% back on top eligible category each billing cycle.",
+        "imageUrl":  "https://logo.clearbit.com/citi.com"
+    },
+    {
+        "name":  "Citi Rewards+",
+        "issuer":  "Citi",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Round up points and small purchase rewards.",
+        "imageUrl":  "https://logo.clearbit.com/citi.com"
+    },
+    {
+        "name":  "Bank of America Travel Rewards",
+        "issuer":  "Bank of America",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Simple travel rewards with no annual fee.",
+        "imageUrl":  "https://logo.clearbit.com/bankofamerica.com"
+    },
+    {
+        "name":  "Bank of America Premium Rewards",
+        "issuer":  "Bank of America",
+        "type":  "Visa",
+        "annualFee":  "$95",
+        "description":  "Travel and dining rewards with credits.",
+        "imageUrl":  "https://logo.clearbit.com/bankofamerica.com"
+    },
+    {
+        "name":  "Bank of America Premium Rewards Elite",
+        "issuer":  "Bank of America",
+        "type":  "Mastercard",
+        "annualFee":  "$550",
+        "description":  "Premium travel rewards and statement credits.",
+        "imageUrl":  "https://logo.clearbit.com/bankofamerica.com"
+    },
+    {
+        "name":  "Bank of America Customized Cash Rewards",
+        "issuer":  "Bank of America",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Choose your 3% cash back category.",
+        "imageUrl":  "https://logo.clearbit.com/bankofamerica.com"
+    },
+    {
+        "name":  "Bank of America Unlimited Cash Rewards",
+        "issuer":  "Bank of America",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Flat-rate cash back on every purchase.",
+        "imageUrl":  "https://logo.clearbit.com/bankofamerica.com"
+    },
+    {
+        "name":  "Bank of America Business Advantage Travel Rewards",
+        "issuer":  "Bank of America",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Business travel rewards with no annual fee.",
+        "imageUrl":  "https://logo.clearbit.com/bankofamerica.com"
+    },
+    {
+        "name":  "Discover it Cash Back",
+        "issuer":  "Discover",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Rotating 5% cash back categories with first-year match.",
+        "imageUrl":  "https://logo.clearbit.com/discover.com"
+    },
+    {
+        "name":  "Discover it Miles",
+        "issuer":  "Discover",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Unlimited 1.5x miles with first-year match.",
+        "imageUrl":  "https://logo.clearbit.com/discover.com"
+    },
+    {
+        "name":  "Discover it Student Cash Back",
+        "issuer":  "Discover",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Student card with rotating categories and rewards.",
+        "imageUrl":  "https://logo.clearbit.com/discover.com"
+    },
+    {
+        "name":  "Amex Blue Business Plus",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$0",
+        "description":  "2x points on all purchases up to annual cap.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "Amex Hilton Honors Aspire",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$550",
+        "description":  "Premium Hilton perks with Diamond status.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "Delta SkyMiles Gold",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$99",
+        "description":  "Delta travel perks and free checked bag.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "Delta SkyMiles Platinum",
+        "issuer":  "American Express",
+        "type":  "Amex",
+        "annualFee":  "$350",
+        "description":  "Delta perks with companion certificate.",
+        "imageUrl":  "https://logo.clearbit.com/americanexpress.com"
+    },
+    {
+        "name":  "Wells Fargo Active Cash",
+        "issuer":  "Wells Fargo",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Flat-rate cash back on every purchase.",
+        "imageUrl":  "https://logo.clearbit.com/wellsfargo.com"
+    },
+    {
+        "name":  "Wells Fargo Autograph",
+        "issuer":  "Wells Fargo",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Bonus points on travel, transit, and dining.",
+        "imageUrl":  "https://logo.clearbit.com/wellsfargo.com"
+    },
+    {
+        "name":  "Bilt Mastercard",
+        "issuer":  "Wells Fargo",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Earn points on rent with no annual fee.",
+        "imageUrl":  "https://logo.clearbit.com/wellsfargo.com"
+    },
+    {
+        "name":  "US Bank Altitude Reserve",
+        "issuer":  "U.S. Bank",
+        "type":  "Visa",
+        "annualFee":  "$400",
+        "description":  "Mobile wallet rewards with travel credits.",
+        "imageUrl":  "https://logo.clearbit.com/usbank.com"
+    },
+    {
+        "name":  "US Bank Cash+",
+        "issuer":  "U.S. Bank",
+        "type":  "Visa",
+        "annualFee":  "$0",
+        "description":  "Choose 5% cash back categories each quarter.",
+        "imageUrl":  "https://logo.clearbit.com/usbank.com"
+    },
+    {
+        "name":  "Apple Card",
+        "issuer":  "Goldman Sachs",
+        "type":  "Mastercard",
+        "annualFee":  "$0",
+        "description":  "Daily cash back with Apple Pay rewards.",
+        "imageUrl":  "https://logo.clearbit.com/goldmansachs.com"
+    },
+    {
+        "name":  "Citi AAdvantage Platinum Select",
+        "issuer":  "Citi",
+        "type":  "Mastercard",
+        "annualFee":  "$99",
+        "description":  "American Airlines perks and bonus miles.",
+        "imageUrl":  "https://logo.clearbit.com/citi.com"
+    },
+    {
+        "name":  "AAdvantage Aviator Red",
+        "issuer":  "Barclays",
+        "type":  "Mastercard",
+        "annualFee":  "$99",
+        "description":  "American Airlines benefits with checked bag perk.",
+        "imageUrl":  "https://logo.clearbit.com/barclays.com"
+    }
+]

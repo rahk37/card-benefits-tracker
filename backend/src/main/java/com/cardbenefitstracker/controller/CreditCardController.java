@@ -1,7 +1,8 @@
 package com.cardbenefitstracker.controller;
 
 import com.cardbenefitstracker.dto.CardBenefitsDto;
-import com.cardbenefitstracker.dto.CreditCardDto;
+import com.cardbenefitstracker.dto.CatalogCardDto;
+import com.cardbenefitstracker.service.CardCatalogService;
 import com.cardbenefitstracker.service.CreditCardService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -15,15 +16,17 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api")
 public class CreditCardController {
 
+    private final CardCatalogService cardCatalogService;
     private final CreditCardService creditCardService;
 
-    public CreditCardController(CreditCardService creditCardService) {
+    public CreditCardController(CardCatalogService cardCatalogService, CreditCardService creditCardService) {
+        this.cardCatalogService = cardCatalogService;
         this.creditCardService = creditCardService;
     }
 
     @GetMapping("/cards")
-    public List<CreditCardDto> getAllCards() {
-        return creditCardService.getAllCards();
+    public List<CatalogCardDto> getAllCards() {
+        return cardCatalogService.getAllCards();
     }
 
     @GetMapping("/benefits")

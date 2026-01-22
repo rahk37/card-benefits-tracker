@@ -1,0 +1,61 @@
+.bubble {
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #2f3136;
+  background: #2b2d31;
+  color: #f2f3f5;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bubble.selected {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.bubble-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bubble-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.bubble-subtitle {
+  color: #a1a1aa;
+  font-size: 12px;
+}
+
+.bubble-fee {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.2);
+  color: #c4b5fd;
+  height: fit-content;
+}
+
+.bubble-content p {
+  margin: 0;
+  color: #cbd5f5;
+}
+
+.bubble-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bubble-check {
+  font-size: 12px;
+  color: #9ca3af;
+}

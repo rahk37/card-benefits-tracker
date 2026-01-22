@@ -1,0 +1,18 @@
+<button class="bubble" type="button" (click)="onToggle()" [class.selected]="selected">
+  <div class="bubble-header">
+    <div>
+      <div class="bubble-title">{{ card.name }}</div>
+      <div class="bubble-subtitle">{{ card.issuer }} · {{ card.cardType }}</div>
+    </div>
+    <span class="bubble-fee">{{ card.annualFee }}</span>
+  </div>
+  <div class="bubble-content">
+    <p>{{ card.perksSummary }}</p>
+  </div>
+  <div class="bubble-tags">
+    <span class="tag" *ngFor="let reward of card.rewards">{{ reward.summary }}</span>
+  </div>
+  <div class="bubble-check">
+    <span>{{ selected ? 'Selected' : 'Select card' }}</span>
+  </div>
+</button>
