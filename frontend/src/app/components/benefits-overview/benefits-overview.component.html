@@ -26,11 +26,55 @@
           </div>
           <div class="benefit">
             <div class="benefit-title">Annual fee</div>
-            <div class="muted">{{ card.annualFee }}</div>
+            <div class="muted">{{ card.annualFee }} · {{ getMonthlyFee(card) }}/mo</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-title">Estimated rewards</div>
+            <ng-container *ngIf="hasSpendInputs && getSummary(card) as summary; else noSpend">
+              <div class="summary-row">
+                <span class="muted">Monthly</span>
+                <strong>${{ summary.monthlyNetRewards.toFixed(2) }}</strong>
+              </div>
+              <div class="summary-row">
+                <span class="muted">Yearly</span>
+                <strong>${{ summary.yearlyNetRewards.toFixed(0) }}</strong>
+              </div>
+            </ng-container>
+            <ng-template #noSpend>
+              <div class="muted">Add monthly spend to calculate rewards.</div>
+            </ng-template>
           </div>
           <div class="benefit">
             <div class="benefit-title">Key benefits</div>
             <div class="muted">{{ card.description }}</div>
+          </div>
+          <div class="benefit" *ngIf="getSummary(card) as summary">
+            <div class="benefit-title">Reward categories</div>
+            <div class="reward-table" *ngIf="summary.categoryRewards?.length; else missingRewards">
+              <div class="reward-row reward-head">
+                <span>Category</span>
+                <span>Rate</span>
+                <span>Notes</span>
+                <span>Est. mo</span>
+              </div>
+              <div class="reward-row" *ngFor="let reward of summary.categoryRewards">
+                <span class="reward-category">{{ formatCategory(reward.category) }}</span>
+                <span class="reward-rate">{{ reward.earnRate }}</span>
+                <span class="reward-notes">{{ reward.notes || 'Standard earn rate.' }}</span>
+                <span class="reward-estimate">
+                  {{ hasSpendInputs ? ('$' + reward.monthlyReward.toFixed(2)) : '--' }}
+                </span>
+              </div>
+            </div>
+            <ng-template #missingRewards>
+              <div class="muted">Reward data missing for this card. Import audited rates to enable calculations.</div>
+            </ng-template>
+          </div>
+          <div class="benefit" *ngIf="card.perks?.length">
+            <div class="benefit-title">Extra perks</div>
+            <div class="perk-list">
+              <span class="pill" *ngFor="let perk of card.perks">{{ perk }}</span>
+            </div>
           </div>
         </div>
       </div>

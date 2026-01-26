@@ -39,6 +39,86 @@
   background: #1e1f22;
 }
 
+.reward-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.reward-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.6fr) minmax(0, 2fr) minmax(0, 0.6fr);
+  gap: 12px;
+  font-size: 13px;
+  color: #d1d5db;
+  min-width: 0;
+}
+
+.reward-head {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  line-height: 1.2;
+}
+
+.reward-category {
+  text-transform: capitalize;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.reward-rate {
+  font-weight: 600;
+  color: #c7d2fe;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.reward-notes {
+  color: #9ca3af;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.category-card {
+  overflow: hidden;
+}
+
+.reward-estimate {
+  text-align: right;
+  font-weight: 600;
+  color: #c7d2fe;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .reward-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr);
+    row-gap: 6px;
+  }
+
+  .reward-row span:nth-child(3),
+  .reward-row span:nth-child(4) {
+    grid-column: 1 / -1;
+  }
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.perk-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .benefit-title-block {
   flex: 1;
   min-width: 160px;

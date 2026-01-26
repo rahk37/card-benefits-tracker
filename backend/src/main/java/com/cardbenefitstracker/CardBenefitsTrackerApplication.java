@@ -3,7 +3,7 @@ package com.cardbenefitstracker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.cardbenefitstracker")
 public class CardBenefitsTrackerApplication {
 
     public static void main(String[] args) {

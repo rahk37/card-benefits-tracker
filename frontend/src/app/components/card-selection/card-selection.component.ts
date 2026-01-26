@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { Observable, map, startWith } from 'rxjs';
+import { startWith } from 'rxjs';
 import { CreditCardService } from '../../services/credit-card.service';
 import { CreditCard } from '../../models/credit-card.model';
 import { BenefitsOverviewComponent } from '../benefits-overview/benefits-overview.component';
 import { getIssuerImageUrl } from '../../utils/card-images';
+import { OptimizationResponse } from '../../models/optimization.model';
 
 @Component({
   selector: 'app-card-selection',
@@ -17,16 +14,13 @@ import { getIssuerImageUrl } from '../../utils/card-images';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatChipsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
     BenefitsOverviewComponent
   ],
   templateUrl: './card-selection.component.html',
   styleUrls: ['./card-selection.component.scss']
 })
 export class CardSelectionComponent implements OnInit {
+  @ViewChild('cardSearchInput') cardSearchInput?: ElementRef<HTMLInputElement>;
   cards: CreditCard[] = [];
   selectedCards: CreditCard[] = [];
   selectedIds = new Set<number>();
@@ -37,19 +31,34 @@ export class CardSelectionComponent implements OnInit {
   errorMessage = '';
   coveredCategories: string[] = [];
   uncoveredCategories: string[] = [];
-  showOptimize = false;
+  showOptimize = true;
   spendByCategory: Record<string, number> = {};
+  householdEnabled = false;
+  householdSpendByCategory: Record<string, number> = {};
+  recommendAllCards = true;
+  editingCards = false;
+  step1Completed = false;
+  showSpendInputs = true;
+  optimizationResult?: OptimizationResponse;
+  optimizationError = '';
+  isOptimizing = false;
+  private optimizeTimer?: ReturnType<typeof setTimeout>;
 
   readonly allCategories = [
     'travel',
     'dining',
     'cashback',
     'groceries',
+    'online-groceries',
     'gas',
     'transit',
     'entertainment',
     'streaming',
+    'drugstores',
     'business',
+    'online-shopping',
+    'mobile-wallet',
+    'rent',
     'perks'
   ];
 
@@ -89,12 +98,23 @@ export class CardSelectionComponent implements OnInit {
     this.cardInputControl.setValue('');
     this.updateCoverage();
     this.showDropdown = true;
+    this.scheduleOptimize();
   }
 
   removeCard(card: CreditCard): void {
     this.selectedIds.delete(card.id);
     this.selectedCards = this.selectedCards.filter((item) => item.id !== card.id);
     this.updateCoverage();
+    this.scheduleOptimize();
+  }
+
+  clearSelection(): void {
+    this.selectedIds.clear();
+    this.selectedCards = [];
+    this.cardInputControl.setValue('');
+    this.updateCoverage();
+    this.optimizationResult = undefined;
+    this.step1Completed = false;
   }
 
   viewBenefits(): void {
@@ -114,7 +134,14 @@ export class CardSelectionComponent implements OnInit {
     this.showDropdown = true;
   }
 
-  closeDropdown(): void {}
+  toggleDropdown(event: MouseEvent): void {
+    event.stopPropagation();
+    this.showDropdown = !this.showDropdown;
+  }
+
+  closeDropdown(): void {
+    this.showDropdown = false;
+  }
 
   updateCoverage(): void {
     const covered = new Set<string>();
@@ -129,12 +156,57 @@ export class CardSelectionComponent implements OnInit {
     this.showOptimize = !this.showOptimize;
     if (this.showOptimize) {
       this.scrollTo('optimize');
+      this.scheduleOptimize();
     }
   }
 
   setSpend(category: string, value: string): void {
     const parsed = Number(value);
     this.spendByCategory[category] = Number.isNaN(parsed) ? 0 : parsed;
+    this.scheduleOptimize();
+  }
+
+  setHouseholdSpend(category: string, value: string): void {
+    const parsed = Number(value);
+    this.householdSpendByCategory[category] = Number.isNaN(parsed) ? 0 : parsed;
+    this.scheduleOptimize();
+  }
+
+  toggleHousehold(): void {
+    this.householdEnabled = !this.householdEnabled;
+    this.scheduleOptimize();
+  }
+
+  toggleRecommendAllCards(): void {
+    this.recommendAllCards = !this.recommendAllCards;
+    this.scheduleOptimize();
+  }
+
+  editCards(): void {
+    this.step1Completed = false;
+  }
+
+  completeStep1(): void {
+    if (this.selectedCards.length === 0) {
+      return;
+    }
+    this.step1Completed = true;
+    this.scrollTo('optimize');
+  }
+
+  toggleSpendInputs(): void {
+    if (!this.showOptimize) {
+      this.showOptimize = true;
+    }
+    this.showSpendInputs = !this.showSpendInputs;
+  }
+
+
+  focusCardInput(): void {
+    if (this.cardSearchInput?.nativeElement) {
+      this.cardSearchInput.nativeElement.focus();
+    }
+    this.openDropdown();
   }
 
   getRecommendations(): CreditCard[] {
@@ -161,10 +233,20 @@ export class CardSelectionComponent implements OnInit {
   }
 
   getTotalMonthlySpend(): number {
-    return Object.values(this.spendByCategory).reduce((total, value) => total + (value ?? 0), 0);
+    const baseSpend = Object.values(this.spendByCategory).reduce((total, value) => total + (value ?? 0), 0);
+    if (!this.householdEnabled) {
+      return baseSpend;
+    }
+    const householdSpend = Object.values(this.householdSpendByCategory)
+      .reduce((total, value) => total + (value ?? 0), 0);
+    return baseSpend + householdSpend;
   }
 
   getEstimatedMonthlyRewards(): number {
+    if (this.optimizationResult?.cardSummaries?.length) {
+      return this.optimizationResult.cardSummaries
+        .reduce((total, summary) => total + summary.monthlyNetRewards, 0);
+    }
     const totalSpend = this.getTotalMonthlySpend();
     if (totalSpend === 0 || this.selectedCards.length === 0) {
       return 0;
@@ -185,14 +267,85 @@ export class CardSelectionComponent implements OnInit {
     return Math.max(0, coveredRewards + uncoveredRewards - annualFees / 12);
   }
 
+  getCoveredSpend(): number {
+    const coveredCategories = new Set<string>();
+    this.selectedCards.forEach((card) => {
+      (card.categories ?? []).forEach((category) => coveredCategories.add(category));
+    });
+    return Object.entries(this.spendByCategory).reduce((total, [category, value]) => {
+      return coveredCategories.has(category) ? total + value : total;
+    }, 0);
+  }
+
+  getUncoveredSpend(): number {
+    return Math.max(0, this.getTotalMonthlySpend() - this.getCoveredSpend());
+  }
+
   getSpendValue(category: string): number {
-    return this.spendByCategory[category] ?? 0;
+    const baseSpend = this.spendByCategory[category] ?? 0;
+    if (!this.householdEnabled) {
+      return baseSpend;
+    }
+    const householdSpend = this.householdSpendByCategory[category] ?? 0;
+    return baseSpend + householdSpend;
   }
 
   getSpendPercent(category: string): number {
     const values = Object.values(this.spendByCategory);
     const maxValue = Math.max(1, ...values);
     return Math.min(100, Math.round((this.getSpendValue(category) / maxValue) * 100));
+  }
+
+  getEstimatedYearlyRewards(): number {
+    if (this.optimizationResult?.cardSummaries?.length) {
+      return this.optimizationResult.cardSummaries
+        .reduce((total, summary) => total + summary.yearlyNetRewards, 0);
+    }
+    return this.getEstimatedMonthlyRewards() * 12;
+  }
+
+  hasSelectedCards(): boolean {
+    return this.selectedCards.length > 0;
+  }
+
+  showStep1Input(): boolean {
+    return !this.step1Completed;
+  }
+
+  showStep2Input(): boolean {
+    return this.step1Completed;
+  }
+
+  hasSpendInputs(): boolean {
+    return Object.values(this.spendByCategory).some((value) => (value ?? 0) > 0) ||
+      (this.householdEnabled &&
+        Object.values(this.householdSpendByCategory).some((value) => (value ?? 0) > 0));
+  }
+
+  hasRewardData(): boolean {
+    return !!this.optimizationResult?.cardSummaries?.some(
+      (summary) => summary.categoryRewards && summary.categoryRewards.length > 0 && summary.monthlyRewards > 0
+    );
+  }
+
+  getCardById(cardId: number): CreditCard | undefined {
+    return this.selectedCards.find((card) => card.id === cardId);
+  }
+
+  formatCurrencyFromCents(cents: number | null | undefined): string {
+    if (!cents) {
+      return '$0';
+    }
+    return `$${(cents / 100).toFixed(0)}`;
+  }
+
+  formatCategory(category: string): string {
+    return category.replace(/-/g, ' ');
+  }
+
+  getImageUrlByCardId(cardId: number): string {
+    const card = this.getCardById(cardId);
+    return card ? getIssuerImageUrl(card.issuer) : getIssuerImageUrl('generic');
   }
 
   isBusinessCard(card: CreditCard): boolean {
@@ -208,5 +361,44 @@ export class CardSelectionComponent implements OnInit {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  private scheduleOptimize(): void {
+    if (!this.showOptimize) {
+      return;
+    }
+    if (this.optimizeTimer) {
+      clearTimeout(this.optimizeTimer);
+    }
+    this.optimizeTimer = setTimeout(() => {
+      this.runOptimization();
+    }, 300);
+  }
+
+  runOptimization(): void {
+    if (this.selectedCards.length === 0) {
+      this.optimizationResult = undefined;
+      return;
+    }
+    this.isOptimizing = true;
+    this.optimizationError = '';
+    this.creditCardService.optimizeRewards({
+      selectedCardIds: this.selectedCards.map((card) => card.id),
+      monthlySpendByCategory: this.spendByCategory,
+      household: this.householdEnabled,
+      householdSplit: this.householdEnabled ? this.householdSpendByCategory : undefined,
+      includeAllCards: this.recommendAllCards
+    }).subscribe({
+      next: (response) => {
+        this.optimizationResult = response;
+        this.isOptimizing = false;
+      },
+      error: (error) => {
+        const status = error?.status ? ` (HTTP ${error.status})` : '';
+        const detail = error?.error?.message ? `: ${error.error.message}` : '';
+        this.optimizationError = `Unable to calculate recommendations right now${status}${detail}.`;
+        this.isOptimizing = false;
+      }
+    });
   }
 }

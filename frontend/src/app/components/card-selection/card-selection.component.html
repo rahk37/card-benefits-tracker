@@ -7,17 +7,17 @@
         Select your cards to see what categories you cover, what you are missing,
         and where you can optimize for the most value.
       </p>
-      <div class="hero-actions">
+      <div class="hero-actions" *ngIf="hasSpendInputs()">
         <button class="cta-button" (click)="scrollTo('coverage')">See coverage</button>
         <button class="outline-button" (click)="scrollTo('optimize')">Optimize my setup</button>
       </div>
-      <div class="jump-links">
+      <div class="jump-links" *ngIf="hasSpendInputs()">
         <button class="ghost-button" (click)="scrollTo('coverage')">Coverage</button>
         <button class="ghost-button" (click)="scrollTo('benefits')">Benefits</button>
         <button class="ghost-button" (click)="scrollTo('optimize')">Optimize</button>
       </div>
     </div>
-    <div class="hero-visual">
+    <div class="hero-visual" *ngIf="hasSpendInputs()">
       <div class="hero-card">
         <div class="hero-card-title">Top covered categories</div>
         <div class="hero-metric">
@@ -34,48 +34,84 @@
         </div>
       </div>
       <div class="hero-card accent">
-        <div class="hero-card-title">Optimization preview</div>
+        <div class="hero-card-title">Estimated Monthly Cash Back</div>
         <div class="hero-value">
-          ${{ getEstimatedMonthlyRewards().toFixed(0) }} / month
+          ${{ getEstimatedMonthlyRewards().toFixed(0) }}
         </div>
         <div class="hero-sub">
-          {{ getTotalMonthlySpend() > 0 ? 'Based on your spend inputs' : 'Add spend inputs to calculate' }}
+          {{ getTotalMonthlySpend() > 0 ? ('~$' + getEstimatedYearlyRewards().toFixed(0) + ' per year net') : 'Add spend inputs to calculate' }}
+        </div>
+        <div class="hero-sub" *ngIf="getTotalMonthlySpend() > 0">
+          Based on your selected cards and spend inputs, after annual fees.
         </div>
       </div>
     </div>
+</div>
+
+  <div class="stepper">
+    <button class="step-card" type="button" (click)="scrollTo('selection')">
+      <span class="step-label">Step 1</span>
+      <strong>Select your cards</strong>
+      <span class="muted">{{ step1Completed ? 'Completed' : 'Required' }}</span>
+    </button>
+    <button class="step-card" type="button" (click)="scrollTo('optimize')" *ngIf="step1Completed">
+      <span class="step-label">Step 2</span>
+      <strong>Enter monthly spend</strong>
+      <span class="muted">{{ hasSpendInputs() ? 'Completed' : 'Required' }}</span>
+    </button>
   </div>
 
   <div *ngIf="isLoading" class="card">Loading cards...</div>
   <div *ngIf="errorMessage" class="card error">{{ errorMessage }}</div>
 
-  <div class="select-area" *ngIf="!isLoading && !errorMessage">
-    <div class="muted small-count">{{ cards.length }} cards available</div>
-    <div class="chip-wrapper" *ngIf="selectedCards.length > 0">
-      <mat-chip-set>
-        <mat-chip-row *ngFor="let card of selectedCards" (removed)="removeCard(card)">
-          <img [src]="getImageUrl(card)" [alt]="card.name" class="chip-image" />
-          <span>{{ card.name }}</span>
-          <span class="chip-tag" *ngIf="isBusinessCard(card)">Business</span>
-          <button matChipRemove aria-label="Remove card">
-            <mat-icon>close</mat-icon>
+  <div class="select-area" *ngIf="!isLoading && !errorMessage && showStep1Input()">
+    <div class="input-callout clickable" (click)="focusCardInput()">
+      <div class="callout-content">
+        <div class="intro-banner">
+          <strong>Get personalized recommendations in 2 steps:</strong>
+          <span>1️⃣ Select the cards you currently have</span>
+          <span>2️⃣ Enter your average monthly spending</span>
+        </div>
+        <div class="callout-header">
+          <div>
+            <h2>1) Select your cards</h2>
+            <p class="muted">Pick the cards you already have so we can calculate your coverage.</p>
+            <div class="muted small-count">{{ cards.length }} cards available</div>
+          </div>
+          <span class="pill covered">Required</span>
+        </div>
+        <div class="chip-wrapper" *ngIf="selectedCards.length > 0">
+          <div class="chip-set">
+            <div class="chip" *ngFor="let card of selectedCards">
+              <img [src]="getImageUrl(card)" [alt]="card.name" class="chip-image" />
+              <span>{{ card.name }}</span>
+              <span class="chip-tag" *ngIf="isBusinessCard(card)">Business</span>
+              <button class="chip-remove" type="button" (click)="removeCard(card)" aria-label="Remove card">×</button>
+            </div>
+          </div>
+        </div>
+        <div class="select-input emphasized">
+          <input
+            #cardSearchInput
+            class="search-input"
+            type="text"
+            placeholder="Search and select cards"
+            [formControl]="cardInputControl"
+            (click)="toggleDropdown($event)"
+            (input)="openDropdown()" />
+          <span class="input-icon">⌄</span>
+        </div>
+        <div class="helper-row">
+          <span class="muted">Tip: type issuer or card name (e.g., “Chase” or “Gold”).</span>
+          <div class="selected-count" *ngIf="selectedCards.length > 0">
+            {{ selectedCards.length }} selected
+          </div>
+          <button class="ghost-button" type="button" *ngIf="selectedCards.length > 0" (click)="clearSelection()">
+            Clear selection
           </button>
-        </mat-chip-row>
-      </mat-chip-set>
+        </div>
+      </div>
     </div>
-
-    <mat-form-field class="discord-field" appearance="outline">
-      <mat-label>Select your cards</mat-label>
-      <mat-chip-grid #chipGrid aria-label="Selected cards">
-        <input
-          matInput
-          placeholder="Search and select cards"
-          [formControl]="cardInputControl"
-          [matChipInputFor]="chipGrid"
-          (focus)="openDropdown()"
-          (click)="openDropdown()"
-          (input)="openDropdown()" />
-      </mat-chip-grid>
-    </mat-form-field>
     <div class="dropdown-panel" *ngIf="showDropdown">
       <div class="dropdown-empty" *ngIf="filteredCards.length === 0">
         No matching cards
@@ -92,21 +128,26 @@
         </div>
       </button>
     </div>
+    <div class="cta-row">
+      <button class="cta-button" [disabled]="selectedCards.length === 0" (click)="completeStep1()">
+        Continue to Step 2
+      </button>
+      <span class="muted" *ngIf="selectedCards.length === 0">Select at least one card to continue.</span>
+    </div>
   </div>
 
-  <div class="cta-row">
-    <button class="cta-button" [disabled]="selectedCards.length === 0" (click)="viewBenefits()">
-      View coverage
-    </button>
-    <button class="outline-button" [disabled]="selectedCards.length === 0" (click)="toggleOptimize()">
-      Optimize my setup
-    </button>
-    <span class="muted" *ngIf="selectedCards.length === 0">Select at least one card to continue.</span>
+  <div class="cta-row" *ngIf="hasSpendInputs()">
+    <button class="cta-button" (click)="viewBenefits()">View coverage</button>
+    <button class="outline-button" (click)="toggleOptimize()">Optimize my setup</button>
   </div>
 
-  <section id="coverage" class="section">
+  <section id="coverage" class="section" *ngIf="hasSpendInputs()">
     <div class="section-header">
-      <h2>Category coverage</h2>
+      <div class="section-title">
+        <h2>Category coverage</h2>
+        <span class="pill covered">{{ coveredCategories.length }} covered</span>
+        <span class="pill missing">{{ uncoveredCategories.length }} missing</span>
+      </div>
       <p class="muted">See which categories are covered and where you may be missing rewards.</p>
     </div>
     <div class="coverage-grid">
@@ -127,21 +168,69 @@
     </div>
   </section>
 
-  <section id="benefits" class="section">
+  <section id="benefits" class="section" *ngIf="hasSpendInputs()">
     <app-benefits-overview
       [selectedCards]="selectedCards"
       [isLoading]="isLoading"
-      [errorMessage]="errorMessage">
+      [errorMessage]="errorMessage"
+      [optimizationResult]="optimizationResult"
+      [hasSpendInputs]="hasSpendInputs()">
     </app-benefits-overview>
   </section>
 
-  <section id="optimize" class="section">
+  <section id="optimize" class="section" *ngIf="showStep2Input()">
     <div class="section-header">
-      <h2>Optimize your setup</h2>
-      <p class="muted">Enter monthly spend by category to get a recommendation.</p>
+      <div class="input-callout">
+        <div>
+          <div class="step-label">Step 2</div>
+          <h2>Enter monthly spend</h2>
+          <p class="muted">Add your spend by category to unlock personalized recommendations.</p>
+        </div>
+        <div class="step-actions">
+          <span class="pill covered">Required</span>
+          <button class="ghost-button" type="button" (click)="toggleSpendInputs()">
+            {{ showSpendInputs ? 'Hide inputs' : 'Show inputs' }}
+          </button>
+          <button class="ghost-button" type="button" (click)="editCards()">Edit cards</button>
+        </div>
+      </div>
     </div>
     <div class="card optimize-card" *ngIf="showOptimize">
-      <div class="optimize-grid">
+      <div class="optimize-summary">
+        <div class="summary-item">
+          <span class="muted">Total spend</span>
+          <strong>${{ getTotalMonthlySpend() }}</strong>
+        </div>
+        <div class="summary-item">
+          <span class="muted">Covered spend</span>
+          <strong>${{ getCoveredSpend() }}</strong>
+        </div>
+        <div class="summary-item">
+          <span class="muted">Uncovered spend</span>
+          <strong>${{ getUncoveredSpend() }}</strong>
+        </div>
+      </div>
+      <div class="summary-note" *ngIf="getUncoveredSpend() > 0">
+        Uncovered spend is estimated at a base rate to avoid missing rewards.
+      </div>
+      <div class="card error" *ngIf="hasSpendInputs() && optimizationResult && !hasRewardData()">
+        Reward data is incomplete. Import the RewardsCC dataset to enable accurate calculations.
+      </div>
+      <div class="household-toggle">
+        <label class="toggle">
+          <input type="checkbox" [checked]="householdEnabled" (change)="toggleHousehold()" />
+          <span>Include household spend</span>
+        </label>
+        <span class="muted" *ngIf="householdEnabled">Add shared spending per category.</span>
+      </div>
+      <div class="household-toggle">
+        <label class="toggle">
+          <input type="checkbox" [checked]="recommendAllCards" (change)="toggleRecommendAllCards()" />
+          <span>Recommend from all cards</span>
+        </label>
+        <span class="muted">If off, recommendations are limited to your selected cards.</span>
+      </div>
+      <div class="optimize-grid" *ngIf="showSpendInputs">
         <div class="optimize-field" *ngFor="let category of allCategories">
           <label>{{ category }}</label>
           <input
@@ -149,9 +238,16 @@
             min="0"
             placeholder="$0"
             (input)="setSpend(category, $any($event.target).value)" />
+          <input
+            *ngIf="householdEnabled"
+            class="household-input"
+            type="number"
+            min="0"
+            placeholder="Household $0"
+            (input)="setHouseholdSpend(category, $any($event.target).value)" />
         </div>
       </div>
-      <div class="chart-card">
+      <div class="chart-card" *ngIf="hasSpendInputs()">
         <div class="chart-header">
           <div>
             <h3>Monthly spend distribution</h3>
@@ -168,22 +264,168 @@
           </div>
         </div>
       </div>
-      <div class="recommendations" *ngIf="getRecommendations().length > 0">
-        <h3>Recommended cards</h3>
-        <div class="card-grid">
-          <div class="card recommendation-card" *ngFor="let card of getRecommendations()">
-            <div class="benefit-header">
-              <img [src]="getImageUrl(card)" [alt]="card.name" class="benefit-image" />
-              <div>
-                <div class="option-title">{{ card.name }}</div>
-                <div class="option-sub">{{ card.issuer }} · {{ card.type }} · {{ card.annualFee }}</div>
-              </div>
+      <div class="chart-card" *ngIf="hasSpendInputs() && optimizationResult?.cardSummaries?.length">
+        <div class="chart-header">
+          <div>
+            <h3>Net rewards by card</h3>
+            <p class="muted">Monthly and yearly estimates after annual fees.</p>
+          </div>
+        </div>
+        <div class="reward-breakdown">
+          <div class="reward-breakdown-row" *ngFor="let summary of optimizationResult?.cardSummaries">
+            <div class="reward-breakdown-card">
+              <span class="option-title">{{ summary.cardName }}</span>
+              <span class="muted">{{ summary.issuer }} · {{ summary.type }}</span>
             </div>
-            <div class="muted">{{ card.description }}</div>
+            <div class="reward-breakdown-value">
+              ${{ summary.monthlyNetRewards.toFixed(2) }}/mo
+            </div>
+            <div class="reward-breakdown-value muted">
+              ${{ summary.yearlyNetRewards.toFixed(0) }}/yr
+            </div>
           </div>
         </div>
       </div>
-      <div class="muted" *ngIf="getRecommendations().length === 0">
+      <div class="chart-card" *ngIf="hasSpendInputs() && optimizationResult?.topRecommendations?.length">
+        <div class="chart-header">
+          <div>
+            <h3>Recommended Cards You Don’t Have</h3>
+            <p class="muted">Best picks based on your spend, independent of your current cards.</p>
+          </div>
+        </div>
+        <div class="reward-breakdown">
+          <div class="reward-breakdown-row top-recommendation" *ngFor="let rec of optimizationResult?.topRecommendations">
+            <div class="reward-breakdown-card">
+              <span class="option-title">{{ rec.cardName }}</span>
+              <span class="recommendation-badge">⭐ Top Recommendation</span>
+              <span class="muted">{{ rec.reasoning }}</span>
+            </div>
+            <div class="reward-breakdown-value">
+              ${{ rec.monthlyNetRewards.toFixed(2) }}/mo
+            </div>
+            <div class="reward-breakdown-value muted">
+              ${{ rec.yearlyNetRewards.toFixed(0) }}/yr
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card" *ngIf="optimizationResult?.similarCardRecommendations?.length">
+        <div class="chart-header">
+          <div>
+            <h3>Cheaper alternatives to your cards</h3>
+            <p class="muted">Similar coverage with lower annual fees.</p>
+          </div>
+        </div>
+        <div class="reward-breakdown">
+          <div class="reward-breakdown-row" *ngFor="let item of optimizationResult?.similarCardRecommendations">
+            <div class="reward-breakdown-card">
+              <span class="option-title">{{ item.currentCardName }} → {{ item.alternativeCardName }}</span>
+              <span class="muted">{{ item.reasoning }}</span>
+              <div class="muted" *ngIf="item.sharedCategories?.length">
+                Shared: {{ item.sharedCategories.join(', ') }}
+              </div>
+              <div class="muted" *ngIf="item.currentOnlyCategories?.length">
+                You keep: {{ item.currentOnlyCategories.join(', ') }}
+              </div>
+              <div class="muted" *ngIf="item.alternativeOnlyCategories?.length">
+                You gain: {{ item.alternativeOnlyCategories.join(', ') }}
+              </div>
+            </div>
+            <div class="reward-breakdown-value">
+              Save {{ formatCurrencyFromCents(item.annualFeeSavingsCents) }}/yr
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="muted" *ngIf="isOptimizing">Calculating recommendations...</div>
+      <div class="card error" *ngIf="optimizationError">
+        {{ optimizationError }}
+        <button class="ghost-button" type="button" (click)="runOptimization()">Retry</button>
+      </div>
+
+      <div class="recommendations" *ngIf="optimizationResult?.cardSummaries?.length">
+        <h3>Detailed card coverage</h3>
+        <div class="card summary-card" *ngFor="let summary of optimizationResult?.cardSummaries">
+          <div class="benefit-header">
+            <img [src]="getImageUrlByCardId(summary.cardId)" [alt]="summary.cardName" class="benefit-image" />
+            <div class="benefit-title-block">
+              <h3>{{ summary.cardName }}</h3>
+              <div class="muted">{{ summary.issuer }} · {{ summary.type }}</div>
+            </div>
+            <span class="pill">{{ summary.annualFee }}</span>
+          </div>
+          <div class="summary-metrics">
+            <div class="summary-metric">
+              <span class="muted">Monthly rewards</span>
+              <strong>${{ summary.monthlyRewards.toFixed(2) }}</strong>
+            </div>
+            <div class="summary-metric">
+              <span class="muted">Yearly rewards</span>
+              <strong>${{ summary.yearlyRewards.toFixed(0) }}</strong>
+            </div>
+            <div class="summary-metric">
+              <span class="muted">Net after fees</span>
+              <strong>${{ summary.monthlyNetRewards.toFixed(2) }}/mo</strong>
+            </div>
+          </div>
+          <div class="reward-table">
+            <div class="reward-row reward-head">
+              <span>Category</span>
+              <span>Rate</span>
+              <span>Estimated</span>
+              <span>Notes</span>
+            </div>
+            <div class="reward-row" *ngFor="let reward of summary.categoryRewards">
+              <span class="reward-category">{{ formatCategory(reward.category) }}</span>
+              <span class="reward-rate">{{ reward.earnRate }}</span>
+              <span>${{ reward.monthlyReward.toFixed(2) }}/mo</span>
+              <span class="reward-notes">{{ reward.notes || 'Standard earn rate.' }}</span>
+            </div>
+          </div>
+          <div class="perk-list" *ngIf="getCardById(summary.cardId)?.perks?.length">
+            <span class="pill" *ngFor="let perk of getCardById(summary.cardId)?.perks">{{ perk }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recommendations" *ngIf="optimizationResult?.bestByCategory?.length">
+        <h3>Best card by category</h3>
+        <div class="card tip-card" *ngFor="let winner of optimizationResult?.bestByCategory">
+          <div class="muted">
+            {{ formatCategory(winner.category) }} → {{ winner.cardName }} ({{ winner.earnRate }})
+          </div>
+          <div class="muted" *ngIf="winner.notes">{{ winner.notes }}</div>
+          <div class="pill-row" *ngIf="winner.perks?.length">
+            <span class="pill" *ngFor="let perk of winner.perks">{{ perk }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recommendations" *ngIf="optimizationResult?.topRecommendations?.length">
+        <h3>Recommended cards</h3>
+        <div class="card-grid">
+          <div class="card recommendation-card" *ngFor="let rec of optimizationResult?.topRecommendations">
+            <div class="benefit-header">
+              <img [src]="getImageUrlByCardId(rec.cardId)" [alt]="rec.cardName" class="benefit-image" />
+              <div>
+                <div class="option-title">{{ rec.cardName }}</div>
+                <div class="option-sub">
+                  Net rewards: ${{ rec.monthlyNetRewards.toFixed(2) }}/mo · ${{ rec.yearlyNetRewards.toFixed(0) }}/yr
+                </div>
+              </div>
+            </div>
+            <div class="muted">{{ rec.reasoning }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recommendations" *ngIf="optimizationResult?.optimizationTips?.length">
+        <h3>Optimization tips</h3>
+        <div class="card tip-card" *ngFor="let tip of optimizationResult?.optimizationTips">
+          <div class="muted">{{ tip }}</div>
+        </div>
+      </div>
+      <div class="muted" *ngIf="!hasSpendInputs()">
         Add spend amounts to see optimized recommendations.
       </div>
     </div>

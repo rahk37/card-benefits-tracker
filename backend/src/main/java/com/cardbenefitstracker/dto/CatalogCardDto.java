@@ -8,8 +8,12 @@ public record CatalogCardDto(
         String issuer,
         String type,
         String annualFee,
+        Integer annualFeeCents,
         String description,
         String imageUrl,
-        List<String> categories
+        List<String> categories,
+        List<CatalogRewardCategoryDto> rewardCategories,
+        List<String> perks,
+        String officialReference
 ) {
 }

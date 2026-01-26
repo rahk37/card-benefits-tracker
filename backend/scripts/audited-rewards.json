@@ -1,0 +1,111 @@
+[
+  {
+    "cardName": "American Express Blue Cash Preferred",
+    "issuer": "American Express",
+    "annualFee": 95,
+    "rewards": [
+      { "category": "U.S. Supermarkets", "rate": 0.06, "cap": "6000/year" },
+      { "category": "Streaming Services", "rate": 0.06, "cap": null },
+      { "category": "Transit & Gas Stations", "rate": 0.03 },
+      { "category": "Other Purchases", "rate": 0.01 }
+    ],
+    "officialReference": "https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/"
+  },
+  {
+    "cardName": "Capital One Quicksilver Cash Rewards",
+    "issuer": "Capital One",
+    "annualFee": 0,
+    "rewards": [
+      { "category": "All Purchases", "rate": 0.015 }
+    ],
+    "officialReference": "https://www.capitalone.com/credit-cards/quicksilver/"
+  },
+  {
+    "cardName": "Chase Freedom Unlimited",
+    "issuer": "Chase",
+    "annualFee": 0,
+    "rewards": [
+      { "category": "Travel", "rate": 0.05 },
+      { "category": "Dining", "rate": 0.03 },
+      { "category": "Drugstores", "rate": 0.03 },
+      { "category": "All Other Purchases", "rate": 0.015 }
+    ],
+    "officialReference": "https://creditcards.chase.com/cash-back/credit-cards/freedom/unlimited"
+  },
+  {
+    "cardName": "Citi Double Cash",
+    "issuer": "Citi",
+    "annualFee": 0,
+    "rewards": [
+      { "category": "All Purchases", "rate": 0.02 }
+    ],
+    "officialReference": "https://www.citi.com/credit-cards/citi-double-cash-credit-card"
+  },
+  {
+    "cardName": "Discover it Cash Back",
+    "issuer": "Discover",
+    "annualFee": 0,
+    "rewards": [
+      { "category": "Rotating Quarterly Categories", "rate": 0.05, "cap": "quarterly limit applies" },
+      { "category": "All Other Purchases", "rate": 0.01 }
+    ],
+    "officialReference": "https://www.discover.com/credit-cards/cashback/"
+  },
+  {
+    "cardName": "Chase Sapphire Preferred",
+    "issuer": "Chase",
+    "annualFee": 95,
+    "rewards": [
+      { "category": "Travel", "rate": 0.02 },
+      { "category": "Dining", "rate": 0.02 },
+      { "category": "All Other Purchases", "rate": 0.01 }
+    ],
+    "officialReference": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+  },
+  {
+    "cardName": "American Express Gold Card",
+    "issuer": "American Express",
+    "annualFee": 250,
+    "rewards": [
+      { "category": "U.S. Supermarkets", "rate": 0.04, "cap": "25000/year" },
+      { "category": "Restaurants", "rate": 0.04 },
+      { "category": "Airfare", "rate": 0.03 },
+      { "category": "Other Purchases", "rate": 0.01 }
+    ],
+    "officialReference": "https://www.americanexpress.com/us/credit-cards/card/green/"
+  },
+  {
+    "cardName": "Capital One Venture Rewards",
+    "issuer": "Capital One",
+    "annualFee": 95,
+    "rewards": [
+      { "category": "All Purchases", "rate": 0.02 }
+    ],
+    "officialReference": "https://www.capitalone.com/credit-cards/venture/"
+  },
+  {
+    "cardName": "Chase Freedom Flex",
+    "issuer": "Chase",
+    "annualFee": 0,
+    "rewards": [
+      { "category": "Rotating Categories", "rate": 0.05, "cap": "quarterly limit applies" },
+      { "category": "Travel", "rate": 0.05 },
+      { "category": "Dining", "rate": 0.03 },
+      { "category": "Drugstores", "rate": 0.03 },
+      { "category": "All Other Purchases", "rate": 0.01 }
+    ],
+    "officialReference": "https://creditcards.chase.com/cash-back/credit-cards/freedom/flex"
+  },
+  {
+    "cardName": "American Express Green Card",
+    "issuer": "American Express",
+    "annualFee": 150,
+    "rewards": [
+      { "category": "Travel", "rate": 0.03 },
+      { "category": "Transit", "rate": 0.03 },
+      { "category": "Restaurants", "rate": 0.03 },
+      { "category": "Other Purchases", "rate": 0.01 }
+    ],
+    "officialReference": "https://www.americanexpress.com/us/credit-cards/card/green/"
+  }
+]
