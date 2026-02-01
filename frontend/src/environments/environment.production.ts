@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://YOUR_RENDER_SERVICE.onrender.com/api'
+  apiUrl: 'https://card-benefits-tracker.onrender.com/api'
 };
