@@ -7,7 +7,7 @@ COPY mvnw mvnw
 COPY pom.xml pom.xml
 COPY src/ src/
 
-RUN ./mvnw -DskipTests package
+RUN chmod +x mvnw && ./mvnw -DskipTests package
 
 EXPOSE 8080
 ENV PORT=8080
