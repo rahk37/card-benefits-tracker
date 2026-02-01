@@ -34,3 +34,31 @@ Build a scalable web application that allows users to track credit card benefits
 
 ### Long-Term Vision
 This project may evolve into a commercial product, so architecture should allow future scaling, feature expansion, and potential monetization.
+
+### Free Hosting (Recommended)
+GitHub Pages can host the Angular frontend for free, and Render can host the Spring Boot backend for free.
+
+#### 1) Deploy Backend on Render
+1. Create a free Render account.
+2. New > Web Service > connect this repo.
+3. Language: `Docker` (recommended)
+4. Root Directory: `backend`
+6. Set Environment Variables:
+   - `JAVA_VERSION=17`
+7. Deploy and copy the Render service URL (e.g. `https://your-service.onrender.com`).
+
+#### 2) Point Frontend to Backend
+Update the production API URL in `frontend/src/environments/environment.production.ts`:
+```
+apiUrl: "https://your-service.onrender.com/api"
+```
+
+#### 3) Deploy Frontend on GitHub Pages
+This repo includes a GitHub Actions workflow that builds and publishes the frontend:
+1. Push to the `main` branch.
+2. In GitHub: Settings > Pages > Source = GitHub Actions.
+3. Your site will be available at `https://<username>.github.io/<repo-name>/`.
+
+#### Notes
+- GitHub Pages is static only; the backend must be hosted elsewhere.
+- CORS is configured to allow requests from any origin.
