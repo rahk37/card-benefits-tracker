@@ -1,39 +1,47 @@
-## Project Context for Cursor AI
+## Card Benefits Tracker (AI Agent Project)
 
-This is a full-stack web application called **Card Benefits Tracker**.
+This is a full-stack web application that helps users compare credit card rewards and benefits, estimate value based on spend, and identify optimal cards and coverage gaps.
 
-### Goal
-Build a scalable web application that allows users to track credit card benefits, perks, and reward categories in one centralized dashboard.
+### Key Features
+- Card catalog with reward categories, perks, fees, and official references
+- Spend-based optimization with monthly/yearly reward estimates
+- Best-by-category winners and top recommendations
+- Cheaper alternative recommendations for similar coverage
+- Progressive, step-by-step UI for card selection and spend input
 
-### Key Requirements
-- Clean, maintainable, production-quality code
-- Clear separation between frontend and backend
-- RESTful API design
-- Secure authentication using JWT
-- Relational database design
-- Strong typing (TypeScript / Java)
+### AI Contribution Metrics
+- Lines of code added: **18,913**
+- Files changed: **95**
+- Measurement: `git diff` from root commit to `HEAD`
 
-### Backend
-- Java with Spring Boot
-- Entities for User, CreditCard, Benefit, BenefitUsage
-- REST endpoints for CRUD operations
-- Authentication & authorization
-- DTO-based request/response models
+### Time Spent
+- Session 1 (bootstrapping + getting app running): **~1 hour**
+- Session 2 (bug fixes + UX improvements): **~2 hours**
+- Session 3 (deployment): **~20 minutes**
 
-### Frontend
-- Modern component-based framework (Angular or React)
-- Dashboard-first UI
-- Forms for adding/editing cards and benefits
-- Responsive design
+### Technologies Used
+- **Frontend:** Angular 17, TypeScript, SCSS
+- **Backend:** Java 17, Spring Boot
+- **Build/Deploy:** Maven, Docker, GitHub Actions, GitHub Pages, Render
+- **Data:** JSON-based catalog and DTO-driven API
 
-### Development Style
-- Prefer clarity over cleverness
-- Use industry best practices
-- Include comments where logic is non-obvious
-- Avoid overengineering early features
+### Project Phases (with key prompts)
+1. **Bootstrap & Data Flow**
+   - “Get the backend to serve card data and the frontend to display it.”
+2. **Optimization & UX**
+   - “Make it more user friendly following the Z pattern with better contrast.”
+   - “Show detailed rewards, estimates, and top recommendations based on spend.”
+3. **Deployment**
+   - “Host frontend and backend for free (Render + GitHub Pages).”
 
-### Long-Term Vision
-This project may evolve into a commercial product, so architecture should allow future scaling, feature expansion, and potential monetization.
+### Future Improvements
+- Audit and fine-tune reward data with verified sources
+- Harden security (auth, rate limits, secrets, private endpoints)
+- Improve UX further (more guidance, charts, clearer comparisons)
+- Add card profiles with full details on selection
+- Recommend which card to use for each category and purchase
+- User profiles/login (optional) with saved preferences
+- Show side-by-side deltas vs user’s current cards (savings/loss)
 
 ### Free Hosting (Recommended)
 GitHub Pages can host the Angular frontend for free, and Render can host the Spring Boot backend for free.
